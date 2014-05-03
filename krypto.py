@@ -14,15 +14,41 @@ def shuffle():
     return deck
 
 
-def main():
-    deck = shuffle()
-    objective = random.choice(deck)
-    deck.remove(objective)
+def deal(deck):
     hand = []
     for n in range(5):
         selection = random.choice(deck)
         hand.append(selection)
         deck.remove(selection)
+    return hand, deck
+
+
+
+def evaluate(expression, hand):
+    # TODO: split on operations too
+    tokens = expression.split()
+    total = int(tokens[0])
+    for n in range(4):
+        term = int(tokens[(n+1)*2])
+        if term not in hand:
+            raise 
+        operation = tokens[n*2+1]
+        if operation == "+":
+            total += term
+        elif operation == "-":
+            total -= term
+        elif operation == "*":
+            total *= term
+        elif operation == "/":
+            total /= term
+    return total
+
+
+def main():
+    deck = shuffle()
+    objective = random.choice(deck)
+    deck.remove(objective)
+    hand,deck = deal(deck)
     print "Cards: %r = %d (Objective Card)" % (hand, objective)
 
     entry = ""
