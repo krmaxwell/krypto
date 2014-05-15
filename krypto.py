@@ -1,4 +1,5 @@
 import random
+import re
 
 
 def shuffle():
@@ -23,10 +24,8 @@ def deal(deck):
     return hand, deck
 
 
-
 def evaluate(expression, hand):
-    # TODO: split on operations too
-    tokens = expression.split()
+    tokens = re.split('([\+\-\*\/\s])', expression)
     total = int(tokens[0])
     for n in range(4):
         term = int(tokens[(n+1)*2])
